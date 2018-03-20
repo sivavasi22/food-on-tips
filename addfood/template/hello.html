@@ -1,0 +1,55 @@
+
+{% extends "mainpage.html" %}
+{% block materialize%}
+
+	
+{% endblock %}
+{% block content %}
+
+{% load static %}
+  
+  <div class="slider">
+    <ul class="slides">
+      <li>
+        <img src="{% static "myapp/img/fardi-syrian-restaurant.jpg" %}"> <!-- random image -->
+        <div class="caption center-align">
+          <h3>Welcome to our Automated Food World!</h3>
+          <h5 class="light grey-text text-lighten-3">Here's you can do it yourself!</h5>
+        </div>
+      </li>
+      <li>
+        <img src="{% static "myapp/img/italian-food-wallpaper-hd-44478-45604-hd-wallpapers.jpg" %}"> <!-- random image -->
+        <div class="caption left-align">
+          <h3>Enjoy the best Meal in just a few clicks!!</h3>
+          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+        </div>
+      </li>
+      <li>
+        <img src="{% static "myapp/img/maxresdefault.jpg" %}"> <!-- random image -->
+        <div class="caption right-align">
+          <h3>Right Aligned Caption</h3>
+          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+        </div>
+      </li>
+      <li>
+        <img src="{% static "myapp/img/Hawksworth-Restaurant-Squid-Ceviche-home.jpg" %}"> <!-- random image -->
+        <div class="caption center-align">
+          <h3>This is our big Tagline!</h3>
+          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+        </div>
+      </li>
+    </ul>
+  </div>
+  
+    <div class="parallax-container">
+      <div class="parallax"><img src="{% static "myapp/img/cooking-header.jpeg" %}"></div>
+    </div>
+  <script type="text/javascript">
+  $( document ).ready(function(){
+    $(".slider").slider();
+    $('.parallax').parallax();
+  });
+</script>
+      
+      
+{% endblock %}
