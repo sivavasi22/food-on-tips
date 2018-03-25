@@ -1,0 +1,22 @@
+{% extends "mainpage.html" %}
+{% block materialize%}
+
+{% endblock %}
+{% block content %}
+
+<form class="col s12" action="/your-name/" method="post" style="margin: 5%; max-width: 50%">
+    {% csrf_token %}
+    {{ form }}
+    <div class="row">
+        <div class="col s6">
+          <input id="Submit" type="submit" name="Submit" class="waves-effect waves-light btn" value="OK">
+          <label for="Submit"></label>
+        </div>
+        <div class="col s6">
+          <input id="Reset" type="reset" name="Reset" class="waves-effect waves-light btn">
+          <label for="Reset"></label>
+        </div>
+      </div>
+</form>
+
+{% endblock %}
