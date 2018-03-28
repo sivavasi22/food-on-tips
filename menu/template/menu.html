@@ -1,0 +1,95 @@
+
+{% extends "mainpage.html" %}
+{% block materialize%}
+
+{% load static %}
+<script type="text/javascript" src="{% static "js/angular.min.js"%}"></script>
+<!-- <script type="text/javascript" src="{% static "djng/js/django-angular.min.js" %}"></script> -->
+{% endblock %}
+{% block content %}
+<h2></h2>
+<div class="parallax-container" style="height: 100%">
+      <div class="parallax"><img src="{% static "myapp/img/test.png" %}"></div>
+      
+<form action="/menu/" method="post">
+<div class="row">
+<div class="col l1"></div>
+<div class="col l10">
+  <table ng-app="myApp" style="background-color: white;opacity: 0.9" class="flow-text">
+        <thead>
+          <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Click to Select</th>
+              <th>Select Quantity</th>
+              <th>Subtotal</th>
+          </tr>
+        </thead>
+
+        <tbody ng-controller="myController">
+        {% csrf_token %}
+  {% for m in menu %}
+     <br>
+          <tr class=" new badge">
+            <td>{% if m.choice == 'V' %}<span class="new badge" data-badge-caption="{{m.choice}}"></span>
+            {% else %}<span class="new badge red" data-badge-caption="{{m.choice}}">
+              {% endif %}
+            </span>
+            </td>
+            <td>{{m.name}}</td>
+            <td>{{m.price}}</td>              
+            <td><input type="checkbox" id="test{{m.id}}" ng-model="order_select.item{{m.id}}" name="order[]" value="{{m.id}}" />
+      <label for="test{{m.id}}" style="margin-left: 100px"></label></td>
+            <td><input type="number" name="order_qty[{{m.id}}]" min="1" ng-model="order_qty[{{m.id}}]" ng-disabled="!order_select.item{{m.id}}" ng-required="" ng-init="order_qty[{{m.id}}]=0"></td>
+            <td ng-bind="subtotal[{{m.id}}]=order_qty[{{m.id}}]*{{m.price}}" ng-model="subtotal[{{m.id}}]"></td>
+          </tr>
+    {% endfor %}   
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a ng-click="addAmount()">Click to check total amount</a></td>
+            <td>Total Amount:</td>
+            <td ng-bind="total"></td>
+          </tr>  
+        </tbody>
+      </table>
+      </div>
+      <div class="col l1"></div>
+      </div>
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>     
+      </form>
+       </div>
+	<script type="text/javascript">
+   $(document).ready(function() {
+    $('select').material_select();
+    $('.modal').modal();
+    $('.parallax').parallax();
+    
+  });
+  angular.module("myApp",[]).controller("myController",function($scope){
+  $scope.subtotal = [];
+  $scope.order_qty = [];
+  $scope.naya={};
+  $scope.total = 0;
+  $scope.naya.kuchbhi = "Fuck Hard!!";
+  $scope.addAmount = function(){
+    $scope.total = 0;
+    for (var i=1;i<$scope.subtotal.length;i++){
+      $scope.total = $scope.total + $scope.subtotal[i];
+    }
+  };
+  // $scope.$watchCollection("subtotal",function(newValue,oldValue)){
+  //   $scope.total = 0;
+  //   for (var i=1;i<$scope.subtotal.length;i++){
+  //     $scope.total = $scope.total + $scope.subtotal[i];
+  //     alert($scope.subtotal[i]);
+  //   }
+  // };
+});
+  </script>
+	
+{% endblock %}

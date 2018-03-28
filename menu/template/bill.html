@@ -1,0 +1,80 @@
+
+{% extends "mainpage.html" %}
+{% block materialize%}
+
+{% load static %}
+<script type="text/javascript" src="{% static "js/angular.min.js"%}"></script>
+<!-- <script type="text/javascript" src="{% static "djng/js/django-angular.min.js" %}"></script> -->
+{% endblock %}
+{% block content %}
+<h2>Welcome To My fully Automated Restaurant</h2>
+
+<form action="/menu/" method="post">
+<div class="row">
+<div class="col l12">
+  <table ng-app="myApp">
+        <thead>
+          <tr>
+              <th></th>
+              <th>Item Name</th>
+              <th>Item Price</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+          </tr>
+        </thead>
+
+        <tbody ng-controller="myController">
+        {% csrf_token %}
+  {% for m in bill %}
+     <br>
+          <tr>
+            <td>{{m.id}}</td>
+            <td>{{m.food_name}}</td>
+            <td>{{m.price}}</td>              
+            <td>{{m.qty}}</td>
+            <td>{{m.subtotal}}</td>
+            <td></td>
+          </tr>
+    {% endfor %}   
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total Amount:</td>
+            <td>{{total}}</td>
+          </tr>  
+        </tbody>
+      </table>
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>     
+      </form>
+	<script type="text/javascript">
+   $(document).ready(function() {
+    $('select').material_select();
+    $('.modal').modal();
+  });
+  angular.module("myApp",[]).controller("myController",function($scope){
+  $scope.subtotal = [];
+  $scope.order_qty = [];
+  $scope.naya={};
+  $scope.total = 0;
+  $scope.naya.kuchbhi = "Fuck Hard!!";
+  $scope.addAmount = function(){
+    $scope.total = 0;
+    for (var i=1;i<$scope.subtotal.length;i++){
+      $scope.total = $scope.total + $scope.subtotal[i];
+    }
+  };
+  // $scope.$watchCollection("subtotal",function(newValue,oldValue)){
+  //   $scope.total = 0;
+  //   for (var i=1;i<$scope.subtotal.length;i++){
+  //     $scope.total = $scope.total + $scope.subtotal[i];
+  //     alert($scope.subtotal[i]);
+  //   }
+  // };
+});
+  </script>
+	
+{% endblock %}
