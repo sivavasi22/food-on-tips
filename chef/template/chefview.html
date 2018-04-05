@@ -1,0 +1,35 @@
+{% extends "mainpage.html" %}
+{% block materialize%}
+{% load static %}
+	<script type="text/javascript" src="{% static "js/angular.min.js"%}"></script>
+  <script type="text/javascript" src="{% static "js/ang.js"%}"></script>
+{% endblock %}
+{% block content %}
+<!-- {% for c in chef %}
+	{{c.emp_firstname}}
+	{{c.emp_lastname}}<br>
+{% endfor %} -->
+      <table ng-app="myApp">
+        <thead>
+          <tr>
+              <th>Order ID</th>
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody ng-controller="myController">
+        {% csrf_token %}
+        {% for ord in chef %}
+          <tr>
+            <td>{{ord.order}}</td>
+            <td>{{ord.food_name}}</td>
+            <td>{{ord.qty}}</td>
+            <td><a href="/chef/update_order_status/{{ord.id}}" class="btn waves-effect waves-light">{{ord.status}}</a></td>
+          </tr>
+        {% endfor %}  
+        </tbody>
+      </table>
+      
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "mainpage.html" %}
+{% block materialize%}
+{% load static %}
+	<script type="text/javascript" src="{% static "js/angular.min.js"%}"></script>
+  <script type="text/javascript" src="{% static "js/ang.js"%}"></script>
+{% endblock %}
+{% block content %}
+<!-- {% for c in chef %}
+	{{c.emp_firstname}}
+	{{c.emp_lastname}}<br>
+{% endfor %} -->
+      <form>
+        <input type="text" name="chef_username">
+      </form>
+      
+{% endblock %}
