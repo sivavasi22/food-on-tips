@@ -1,0 +1,29 @@
+{% extends "mainpage.html" %}
+{% block materialize%}
+	
+{% endblock %}
+{% block content %}
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Task</th>
+			<th>Order</th>
+			<th>Table</th>
+			<th>Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% csrf_token %}
+        {% for ord in waiter %}
+          <tr>
+          	<td>{{ord.id}}</td>
+            <td>{{ord.task}}</td>
+            <td>{{ord.order_id}}</td>
+            <td>{{ord.table}}</td>
+            <td><a href="/waiter/update_waiter_status/{{ord.id}}" class="btn waves-effect waves-light">{{ord.status}}</a></td>
+          </tr>
+        {% endfor %} 
+	</tbody>
+</table>
+{% endblock %}
